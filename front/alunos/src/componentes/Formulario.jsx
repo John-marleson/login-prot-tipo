@@ -1,33 +1,33 @@
 import { useState } from "react"
 import logo from '../assets/logo.png'
 
-function FormularioAlunos(){
-    const [ email, setEmail ] = useState('');
-    const [ senha, setSenha ] = useState('');
-    const [ login, setLogin ] = useState('');
+function FormularioAlunos() {
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [login, setLogin] = useState('');
 
-    async function reqApi(dados){
-        try{
+    async function reqApi(dados) {
+        try {
             const consumoApi = await fetch('http://localhost:3002/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dados)
             })
 
-            
+
             const resposta = await consumoApi.json()
-            
-            if(!consumoApi.ok){
+
+            if (!consumoApi.ok) {
                 return resposta
             }
 
             return resposta
-        }catch(erro){
+        } catch (erro) {
             console.log(`erro na requisição da api - ${erro}`)
         }
     }
 
-    async function submit(event){
+    async function submit(event) {
         event.preventDefault();
 
         const respostaApi = await reqApi({
@@ -37,40 +37,40 @@ function FormularioAlunos(){
 
         setLogin(respostaApi)
 
-        if(respostaApi.token){
+        if (respostaApi.token) {
             setEmail('')
             setSenha('')
         }
     }
 
-    return( 
-    <>
-    <div className="card-login">
-        
-        <img src={logo} className="logo" alt="logo" />
+    return (
+        <>
+            <div className="card-login">
 
-        <form onSubmit={submit} className="form">
+                <img src={logo} className="logo" alt="logo" />
 
-            <legend>preencha com seus dados abaixo.</legend>
+                <form onSubmit={submit} className="form">
 
-            <input type="email" placeholder="Email" value={email} onChange={(e)=> setEmail(e.target.value)} className="card-input"/>
+                    <legend>preencha com seus dados abaixo.</legend>
 
-            <input type="password" placeholder="Senha" value={senha} onChange={(e)=> setSenha(e.target.value)} className="card-input"/>
+                    <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="card-input" />
 
-                {login?.erro && <p style={{color: 'red'}} className="resposta">{login.erro}</p>}
+                    <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} className="card-input" />
 
-                {login?.mensagem && <p style={{color: 'green'}} className="resposta">{login.mensagem}</p>}
+                    {login?.erro && <p style={{ color: 'red' }} className="resposta">{login.erro}</p>}
 
-            <div className="acount">
-                <a href="" className="link">criar conta</a>
-                <a href="" className="link">recuperar senha</a>
+                    {login?.mensagem && <p style={{ color: 'green' }} className="resposta">{login.mensagem}</p>}
+
+                    <div className="acount">
+                        <a href="" className="link">criar conta</a>
+                        <a href="" className="link">recuperar senha</a>
+                    </div>
+
+                    <button className="button">acessar</button>
+
+                </form>
             </div>
-
-            <button className="button">acessar</button>
-
-        </form>
-    </div>
-    </>)
+        </>)
 }
 
 export default FormularioAlunos;
