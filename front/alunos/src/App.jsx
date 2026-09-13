@@ -1,4 +1,5 @@
-import FormularioAlunos from './componentes/formulario'
+import FormularioAlunos from './componentes/Formulario'
+import ImagemB2 from './componentes/ImagemB2'
 import './App.css'
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <>
     <div className='conteiner'>
       <FormularioAlunos />
+      <ImagemB2 />
     </div>
       
     </>

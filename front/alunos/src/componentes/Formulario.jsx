@@ -46,21 +46,29 @@ function FormularioAlunos(){
     return( 
     <>
     <div className="card-login">
+        
         <img src={logo} className="logo" alt="logo" />
+
         <form onSubmit={submit} className="form">
-            <legend>acesse sua conta</legend>
+
+            <legend>preencha com seus dados abaixo.</legend>
+
             <input type="email" placeholder="Email" value={email} onChange={(e)=> setEmail(e.target.value)} className="card-input"/>
+
             <input type="password" placeholder="Senha" value={senha} onChange={(e)=> setSenha(e.target.value)} className="card-input"/>
+
+                {login?.erro && <p style={{color: 'red'}} className="resposta">{login.erro}</p>}
+
+                {login?.mensagem && <p style={{color: 'green'}} className="resposta">{login.mensagem}</p>}
+
             <div className="acount">
                 <a href="" className="link">criar conta</a>
                 <a href="" className="link">recuperar senha</a>
             </div>
+
             <button className="button">acessar</button>
+
         </form>
-        <div>
-            {login?.erro && <p style={{color: 'red'}} className="resposta">{login.erro}</p>}
-            {login?.mensagem && <p style={{color: 'green'}} className="resposta">{login.mensagem}</p>}
-        </div>
     </div>
     </>)
 }
